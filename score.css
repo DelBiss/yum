@@ -1,0 +1,177 @@
+:root {
+    --score-point-size: 0.33rem;
+    --score-dice-size: calc( var( --score-point-size) * 4.6);
+    --score-row-size: calc( var( --score-dice-size) * 1.7);
+    --score-col-size: calc( var( --score-row-size) * 1.7);
+    --player-color: 41;
+    --player-color_1: 202;
+    --player-color_2: 327;
+    --player-color_3: 164;
+    --actif-sat: 15%;
+    --score-sat: 60%;
+    --score-hover: 80%;
+    --actif-color: hsl(var(--player-color), var(--actif-sat), 65%);
+    --actif-score-color: hsl(var(--player-color), 60%, 65%);
+    --actif-score-hover: hsl(var(--player-color), 80%, 50%);
+    --actif-selected: black;
+}
+
+[data-joueur="1"] {
+    --player-color: 202;
+    --actif-color: hsl(var(--player-color), 100%, 70%);
+    --actif-score-color: hsl(var(--player-color), 100%, 50%);
+    --actif-score-hover: hsl(var(--player-color), 100%, 30%);
+    --actif-selected: hsl(var(--player-color), 100%, 20%);
+}
+
+[data-joueur="3"] {
+    --player-color: 327;
+    --actif-color: hsl(var(--player-color), 100%, 80%);
+    --actif-score-color: hsl(var(--player-color), 100%, 66%);
+    --actif-score-hover: hsl(var(--player-color), 100%, 30%);
+    --actif-selected: hsl(var(--player-color), 100%, 20%);
+}
+
+[data-joueur="2"] {
+    --player-color: 164;
+    --actif-color: hsl(var(--player-color), 100%, 45%);
+    --actif-score-color: hsl(var(--player-color), 100%, 35%);
+    --actif-score-hover: hsl(var(--player-color), 100%, 25%);
+    --actif-selected: hsl(var(--player-color), 100%, 15%);
+}
+
+[data-joueur="4"] {
+    --player-color: 41;
+    --actif-color: hsl(var(--player-color), 100%, 70%);
+    --actif-score-color: hsl(var(--player-color), 100%, 50%);
+    --actif-score-hover: hsl(var(--player-color), 100%, 30%);
+    --actif-selected: hsl(var(--player-color), 100%, 20%);
+}
+
+.joueur .ts {
+    justify-content: center;
+}
+
+.ts {
+    background-color: var(--actif-selected);
+    color: white;
+    font-weight: bolder;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+
+html {
+    font-family: system-ui, sans-serif;
+}
+
+.scoresheet {
+    display: grid;
+    grid-template-rows: repeat(18, var( --score-row-size));
+    grid-template-columns: 150px 90px;
+    grid-auto-columns: var( --score-col-size);
+    grid-auto-flow: column;
+    width: 50%;
+}
+
+.scoresheet h1 {
+    font-size: 1em;
+}
+
+.instuc {
+    font-size: x-small;
+}
+
+.score {
+    display: contents;
+    list-style-type: none;
+}
+
+.sup .die-item {
+    height: var(--score-dice-size);
+    padding: var(--score-point-size);
+    width: var(--score-dice-size);
+    transform: none;
+    margin-inline: var(--score-point-size);
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 15%;
+}
+
+.sup .dot {
+    height: var(--score-point-size);
+    width: var(--score-point-size);
+}
+
+.scoresheet>div {
+    display: contents;
+}
+
+.scoresheet>div>div {
+    display: contents;
+}
+
+.scoresheet>div>div>div {
+    display: flex;
+    align-items: center;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    padding: var(--score-point-size);
+}
+
+.scoresheet .item[data-score] {
+    background-color: white;
+    justify-content: center;
+}
+
+.sup .item div:nth-of-type(1) {
+    width: 5rem;
+}
+
+.actif .item[data-score] {
+    background-color: var(--actif-color);
+}
+
+.actif .item:not([data-possible-score="0"]) {
+    background-color: var(--actif-score-color);
+}
+
+.actif .item[data-possible-score="0"] {
+    color: var(--actif-color);
+}
+
+.actif .item[data-possible-score]::before {
+    content: attr(data-possible-score);
+}
+
+
+/* .actif .zero_score[data-score]:hover {
+    color: black;
+} */
+
+.actif .item:hover {
+    background-color: var(--actif-score-hover);
+    color: white;
+}
+
+.joueur .item.selected {
+    background-color: var(--actif-selected);
+    color: white;
+}
+
+.actif .item:not([data-score="-1"]),
+.item:not([data-score="-1"]) {
+    font-weight: bolder;
+    background-color: white;
+    color: inherit;
+}
+
+.actif .item:not([data-score="-1"])::before,
+.item:not([data-score="-1"])::before {
+    content: attr(data-score);
+}
