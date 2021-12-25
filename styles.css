@@ -259,6 +259,10 @@ button {
     padding: 0.5rem 1rem;
 }
 
+button::after {
+    content: var(--p_name);
+}
+
 button:hover {
     cursor: pointer;
 }

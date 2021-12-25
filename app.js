@@ -1,8 +1,9 @@
 window.rolling = 0;
 window.joueur = null;
-window.joueurMax = 4;
+window.joueurMax = 1;
+window.infinite = false;
 window.scoreSelected = null;
-window.continu = true;
+window.continu = false;
 window.ShowScoreIncomplete = true;
 
 function rollDice() {
@@ -40,8 +41,9 @@ function setScore() {
 
 function CalculateTotal() {
     const jScore = document.querySelector(`.joueur[data-joueur="${window.joueur}"]`);
-    var sup = 0
-    var inf = 0
+    var sup = 0;
+    var inf = 0;
+    var bonus = 0;
     var allSup = true;
     var allInf = true;
     const allItem = [...jScore.querySelectorAll("[data-score]")]
@@ -64,7 +66,11 @@ function CalculateTotal() {
     }
     if ((sup > 0) && (window.ShowScoreIncomplete || allSup)) {
 
-        jScore.querySelector(".sup .total").textContent = sup
+        if (sup >= 63) {
+            jScore.querySelector(".sup .bonus").textContent = 35
+            bonus = 35;
+        }
+        jScore.querySelector(".sup .total").textContent = sup + bonus
     }
 
     if ((inf > 0) && (window.ShowScoreIncomplete || allInf)) {
@@ -72,18 +78,18 @@ function CalculateTotal() {
     }
 
     if (((sup + inf) > 0) && (window.ShowScoreIncomplete || (allSup && allInf))) {
-        jScore.querySelector(".inf .totalScore").textContent = 0 + sup + inf
+        jScore.querySelector(".inf .totalScore").textContent = 0 + sup + inf + bonus
     }
 }
 
 function buttonLabel() {
-    const strDe = `Roulez les dés (${window.nbTour})`
-    const strTour = `Finir son tour`
+    const strDe = `Roule les dés (${window.nbTour}), `
+    const strTour = `Fini ton tour, `
     if (window.scoreSelected != null) {
         document.getElementById("roll-button").textContent = strTour;
         document.getElementById("roll-button").disabled = false;
     } else {
-        if (window.nbTour > 0) {
+        if ((window.nbTour > 0) || window.infinite) {
             document.getElementById("roll-button").textContent = strDe;
         } else {
             document.getElementById("roll-button").textContent = strTour;
@@ -206,6 +212,7 @@ score_item.forEach(si => {
     si.addEventListener("click", scoreClick)
 });
 setNewTurn()
+buttonLabel()
 
 function calculScrore(des) {
     var pts = Array();
