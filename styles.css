@@ -30,6 +30,8 @@ body {
     align-items: center;
     flex-direction: column;
     width: 100%;
+    grid-row: 1;
+    grid-column: 1;
 }
 
 .dice {
